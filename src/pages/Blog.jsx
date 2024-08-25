@@ -104,24 +104,37 @@ const Blog = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const token = localStorage.getItem("authToken");
   const userId = token ? jwtDecode(token).id : null;
 
+  const Spinner = () => (
+    <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent border-solid rounded-full animate-spin"></div>
+  );
+
   useEffect(() => {
+    setLoading(true);
     axios
-      .get(`http://localhost:8080/api/blog/getAllPostsForUser/${userId}`)
+      .get(
+        `https://blogbackend-hre7.onrender.com/api/blog/getAllPostsForUser/${userId}`
+      )
       .then((res) => {
         setPosts(res.data.data);
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, [userId]);
 
   const handleDelete = (postId) => {
     axios
-      .delete(`http://localhost:8080/api/blog/deletePosts/${postId}`)
+      .delete(
+        `https://blogbackend-hre7.onrender.com/api/blog/deletePosts/${postId}`
+      )
       .then(() => {
         setPosts(posts.filter((post) => post.id !== postId));
       })
@@ -139,11 +152,15 @@ const Blog = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
     axios
-      .put(`http://localhost:8080/api/blog/updatePosts/${editPost}`, {
-        title,
-        content,
-      })
+      .put(
+        `https://blogbackend-hre7.onrender.com/api/blog/updatePosts/${editPost}`,
+        {
+          title,
+          content,
+        }
+      )
       .then((response) => {
         setPosts(
           posts.map((post) =>
@@ -156,15 +173,23 @@ const Blog = () => {
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
-  const filteredPosts = posts.filter((post) =>
-    post.title.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredPosts = posts?.filter((post) =>
+    post?.title?.toLowerCase()?.includes(searchTerm?.toLowerCase())
   );
 
   return (
     <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 mt-16">
+      {loading && (
+        <div className="fixed inset-0 flex items-center justify-center">
+          <Spinner />
+        </div>
+      )}
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-extrabold text-gray-900">
           Quick Blog Edits & Controls

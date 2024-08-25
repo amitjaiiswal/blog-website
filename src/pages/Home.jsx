@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import blog from "../assets/blog.svg";
+import notFound from "../assets/notFound.svg";
 
 const FileIcon = () => (
   <svg
@@ -38,15 +39,20 @@ const FileIcon = () => (
 const Home = () => {
   const [allPosts, setAllPosts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     axios
-      .get("http://localhost:8080/api/blog/getAllPosts")
+      .get(`https://blogbackend-hre7.onrender.com/api/blog/getAllPosts`)
       .then((res) => {
         setAllPosts(res.data.data);
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, []);
 
@@ -56,10 +62,10 @@ const Home = () => {
     return date.toLocaleDateString("en-US", options);
   };
 
-  const filteredPosts = allPosts.filter(
+  const filteredPosts = allPosts?.filter(
     (post) =>
-      post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      post.created_by.toLowerCase().includes(searchTerm.toLowerCase())
+      post?.title?.toLowerCase()?.includes(searchTerm?.toLowerCase()) ||
+      post?.created_by?.toLowerCase()?.includes(searchTerm?.toLowerCase())
   );
 
   const postsToDisplay = searchTerm ? filteredPosts : allPosts;
@@ -88,6 +94,12 @@ const Home = () => {
         </div>
       </div>
 
+      {loading && (
+        <div className="flex justify-center items-center">
+          <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent border-solid rounded-full animate-spin"></div>
+        </div>
+      )}
+
       <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 mt-16">
         <div className="px-4 py-2 sm:px-0">
           <input
@@ -98,9 +110,12 @@ const Home = () => {
             className="border p-2 mb-4 w-full"
           />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {postsToDisplay.length > 0 ? (
+            {postsToDisplay?.length > 0 ? (
               postsToDisplay.map((post) => (
-                <div key={post.id} className="bg-white shadow-md rounded-lg p-4">
+                <div
+                  key={post.id}
+                  className="bg-white shadow-md rounded-lg p-4"
+                >
                   <div className="flex gap-1">
                     <FileIcon />
                     <h2 className="text-xl font-bold text-gray-900">
@@ -120,7 +135,14 @@ const Home = () => {
                 </div>
               ))
             ) : (
-              <p>No posts found</p>
+              // <div className="flex items-center justify-center">
+              //   <img
+              //     src={notFound}
+              //     alt="notFound illustration"
+              //     className="max-w-full max-h-screen object-contain w-3/4"
+              //   />
+              // </div>
+              ""
             )}
           </div>
         </div>

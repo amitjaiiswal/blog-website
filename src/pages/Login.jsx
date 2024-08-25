@@ -9,6 +9,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -18,14 +19,14 @@ const Login = () => {
       setErrorMessage("Email and Password cannot be empty");
       return;
     }
-
+    setLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/posts/login",
+        `https://blogbackend-hre7.onrender.com/api/posts/login`,
         { email, password }
       );
 
-      const token = response.data.data.token
+      const token = response.data.data.token;
 
       localStorage.setItem("authToken", token);
 
@@ -37,6 +38,8 @@ const Login = () => {
       } else {
         setErrorMessage("An unexpected error occurred.");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -102,8 +105,13 @@ const Login = () => {
               <button
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                disabled={loading}
               >
-                Sign in
+                {loading ? (
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent border-solid rounded-full animate-spin mr-2"></div>
+                ) : (
+                  "Sign in"
+                )}
               </button>
             </div>
           </form>

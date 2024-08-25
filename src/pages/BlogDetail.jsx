@@ -12,22 +12,25 @@ const BlogDetail = () => {
   const [blogComment, setBlogComment] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [loading, setLoading] = useState(false); 
+  const [loadingComment, setLoadingComment] = useState(false);
 
   const token = localStorage.getItem("authToken");
   const userId = token ? jwtDecode(token).id : null;
 
   const getComment = async () => {
-    axios
-      .get(
-        `http://localhost:8080/api/comment/getAllBlogsForUserForComment/${id}`
-      )
-      .then((res) => {
-        setPost(res.data.data);
-        setComments(res.data.data[0].comments);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    setLoading(true); 
+    try {
+      const res = await axios.get(
+        `https://blogbackend-hre7.onrender.com/api/comment/getAllBlogsForUserForComment/${id}`
+      );
+      setPost(res.data.data);
+      setComments(res.data.data[0].comments);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false); 
+    }
   };
 
   const blog = post.length > 0 ? post[0] : null;
@@ -37,13 +40,13 @@ const BlogDetail = () => {
     const date = new Date(dateString);
     return date.toLocaleDateString("en-US", options);
   };
-  ``;
 
   const handleComment = async (e) => {
     e.preventDefault();
 
     if (!userId) {
-      setErrorMessage("Please log in to add a comment.") 
+      setErrorMessage("Please log in to add a comment.");
+      navigate("/login");
       return;
     }
 
@@ -52,6 +55,7 @@ const BlogDetail = () => {
       return;
     }
 
+    setLoadingComment(true);
     try {
       const response = await axios.post(
         `https://blogbackend-hre7.onrender.com/api/comment/createComments`,
@@ -70,6 +74,8 @@ const BlogDetail = () => {
       } else {
         setErrorMessage("An unexpected error occurred.");
       }
+    } finally {
+      setLoadingComment(false);
     }
   };
 
@@ -80,14 +86,22 @@ const BlogDetail = () => {
   return (
     <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 mt-16">
       <div className="px-4 py-6 sm:px-0">
-        <h1 className="text-3xl font-bold text-gray-900">{blog?.title}</h1>
-        <p className="text-gray-700 mt-4">{blog?.content}</p>
+        {loading ? ( 
+          <div className="flex justify-center items-center">
+            <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent border-solid rounded-full animate-spin"></div>
+          </div>
+        ) : (
+          <>
+            <h1 className="text-3xl font-bold text-gray-900">{blog?.title}</h1>
+            <p className="text-gray-700 mt-4">{blog?.content}</p>
+          </>
+        )}
 
         {/* Comments section */}
         <div className="mt-8">
           <h2 className="text-2xl font-bold text-gray-900">Comments</h2>
           {comments
-            .filter((comment) => comment.userId !== null) 
+            .filter((comment) => comment.userId !== null)
             .map((comment, index) => (
               <div key={index} className="mt-4">
                 <div className="bg-white shadow-md rounded-lg p-4 mb-4">
@@ -108,9 +122,14 @@ const BlogDetail = () => {
             />
             <button
               type="submit"
-              className="mt-2 bg-indigo-500 hover:bg-indigo-600 px-4 py-2 rounded-3xl text-sm font-medium text-white"
+              className="mt-2 bg-indigo-500 hover:bg-indigo-600 px-4 py-2 rounded-3xl text-sm font-medium text-white flex items-center justify-center"
+              disabled={loadingComment} 
             >
-              Submit
+              {loadingComment ? (
+                <div className="w-5 h-5 border-2 border-white border-t-transparent border-solid rounded-full animate-spin mr-2"></div>
+              ) : (
+                "Submit"
+              )}
             </button>
           </form>
         </div>

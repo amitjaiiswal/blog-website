@@ -10,19 +10,22 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
 
     if (!name.trim() || !email.trim() || !password.trim()) {
-      setErrorMessage("Name, email and password cannot be empty");
+      setErrorMessage("Name, email, and password cannot be empty");
       return;
     }
 
+    setLoading(true);
+
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/posts/register",
+        `https://blogbackend-hre7.onrender.com/api/posts/register`,
         {
           name,
           email,
@@ -37,6 +40,8 @@ const Register = () => {
       } else {
         setErrorMessage("An unexpected error occurred.");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -120,8 +125,13 @@ const Register = () => {
               <button
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                disabled={loading} 
               >
-                Register
+                {loading ? (
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent border-solid rounded-full animate-spin mr-2"></div>
+                ) : (
+                  "Register"
+                )}
               </button>
             </div>
           </form>

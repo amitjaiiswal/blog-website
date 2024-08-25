@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Snackbar from "../snakeBar/Snackbar";
-import addPost from '../assets/addPost.svg'
-import { jwtDecode } from "jwt-decode";
+import addPost from "../assets/addPost.svg";
+import {jwtDecode} from "jwt-decode"; 
 
 const AddBlog = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const token = localStorage.getItem("authToken");
-  const userId = token? jwtDecode(token).id : null
+  const userId = token ? jwtDecode(token).id : null;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,9 +22,10 @@ const AddBlog = () => {
       return;
     }
 
+    setLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/blog/createPosts",
+        `https://blogbackend-hre7.onrender.com/api/blog/createPosts`,
         {
           title,
           content,
@@ -41,6 +43,8 @@ const AddBlog = () => {
       } else {
         setErrorMessage("An unexpected error occurred.");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -69,10 +73,8 @@ const AddBlog = () => {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                disabled={loading} // Disable input during loading
               />
-              {/* {errors.title && (
-                <p className="text-red-500 text-sm mt-1">{errors.title}</p>
-              )} */}
             </div>
             <div className="mb-4">
               <label
@@ -87,17 +89,29 @@ const AddBlog = () => {
                 onChange={(e) => setContent(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
                 rows="6"
+                disabled={loading}
               />
-              {/* {errors.content && (
-                <p className="text-red-500 text-sm mt-1">{errors.content}</p>
-              )} */}
             </div>
             <button
+                type="submit"
+                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                disabled={loading} 
+              >
+                {loading ? (
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent border-solid rounded-full animate-spin mr-2"></div>
+                ) : (
+                  "Add blog"
+                )}
+              </button>
+            {/* <button
               type="submit"
-              className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className={`flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
+                loading ? "bg-gray-400 cursor-not-allowed" : "bg-indigo-600 hover:bg-indigo-500 focus-visible:outline-indigo-600"
+              }`}
+              disabled={loading} 
             >
-              Submit
-            </button>
+              {loading ? "Submitting..." : "Submit"}
+            </button> */}
           </form>
         </div>
       </div>
