@@ -1,8 +1,20 @@
 # Blog Application
 
+## Application Design
+![Alt Text](https://sprl.in/weatherApp)
+
 ## Objective
 This project is a basic blog application with a list view and a detail view for blog posts, demonstrating skills in frontend development, backend development, database management, and deployment.
 
+### Frontend (React with Vite, Tailwind)
+- **Create a responsive layout** with a header, main content area, and footer.
+- **Implement a list view** of blog posts, displaying title, content, date, and author.
+- **Implement a detail view** for individual blog posts.
+- **Create a form** for adding new blog posts.
+- **Implement basic client-side form validation**.
+- **Show sign-in and sign-out buttons** based on authentication state.
+- **Conditionally display the blog and add post pages** based on authentication.
+  
 ### Backend (Node.js with Express)
 - **Set up a RESTful API** with the following endpoints:
   - `GET /posts` - List all posts
@@ -20,15 +32,6 @@ This project is a basic blog application with a list view and a detail view for 
 - **Add a comment system** with author information and display comments for each post.
 - **Display post details** (title, content, date, and author) on the home page.
 - **Implement basic error handling** and input validation.
-
-### Frontend (React with Vite, Tailwind)
-- **Create a responsive layout** with a header, main content area, and footer.
-- **Implement a list view** of blog posts, displaying title, content, date, and author.
-- **Implement a detail view** for individual blog posts.
-- **Create a form** for adding new blog posts.
-- **Implement basic client-side form validation**.
-- **Show sign-in and sign-out buttons** based on authentication state.
-- **Conditionally display the blog and add post pages** based on authentication.
 
 ### Full Stack Integration
 - **Connected the frontend** to the backend API.
