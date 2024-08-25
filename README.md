@@ -92,4 +92,5 @@ This project is a basic blog application with a list view and a detail view for 
     npm start
     ```
 ### Unit Test Case File Link
-    [Link Text](https://docs.google.com/spreadsheets/d/1FKkDp8s4nNgQt1oNkhDWevghwCtvsdvNDJ9KnQ4LxTc/edit?usp=sharing)
+
+You can view the unit test cases in the following [Google Sheets document](https://docs.google.com/spreadsheets/d/1FKkDp8s4nNgQt1oNkhDWevghwCtvsdvNDJ9KnQ4LxTc/edit?usp=sharing).
