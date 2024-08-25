@@ -52,27 +52,10 @@ This project is a basic blog application with a list view and a detail view for 
 
 ## Setup and Installation
 
-### Backend Setup
-1. Clone the repository:
-    ```sh
-    git clone https://github.com/Amit-andro/
-    ```
-2. Navigate to the project directory:
-    ```sh
-    cd blogBackend
-    ```
-3. Install dependencies:
-    ```sh
-    npm install bcrypt jwt-decode cors
-    ```
-4. Start the application:
-    ```sh
-    npm start
-    ```
 ### Frontend Setup
 1. Clone the repository:
     ```sh
-    git clone https://github.com/Amit-andro/
+    [git clone https://github.com/Amit-andro/](https://github.com/amitjaiiswal/blog-website.git)
     ```
 2. Navigate to the project directory:
     ```sh
@@ -89,5 +72,23 @@ This project is a basic blog application with a list view and a detail view for 
 5. Start the application:
     ```sh
     npm run dev
+    ```
+
+### Backend Setup
+1. Clone the repository:
+    ```sh
+    git clone https://github.com/Amit-andro/
+    ```
+2. Navigate to the project directory:
+    ```sh
+    cd blogBackend
+    ```
+3. Install dependencies:
+    ```sh
+    npm install bcrypt jwt-decode cors
+    ```
+4. Start the application:
+    ```sh
+    npm start
     ```
 
