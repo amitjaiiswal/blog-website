@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.joinbg {
+  background-color: #6947bf;
+}
+
+.joinbg:hover{
+  background-color: #6947bf;
+}
+
+
+body,
+html,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+.main-div {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  scroll-behavior: smooth;
+}
+
+.content {
+  flex: 1;
+}
+
+.footer {
+  margin-top: auto;
+}
+
