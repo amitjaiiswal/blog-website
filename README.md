@@ -51,7 +51,40 @@ This project is a basic blog application with a list view and a detail view for 
 
 ### Backend Setup
 1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   ```bash
-   npm install
+    ```sh
+    git clone https://github.com/Amit-andro/
+    ```
+2. Navigate to the project directory:
+    ```sh
+    cd blogBackend
+    ```
+3. Install dependencies:
+    ```sh
+    npm install bcrypt jwt-decode cors
+    ```
+4. Start the application:
+    ```sh
+    npm start
+    ```
+### Frontend Setup
+1. Clone the repository:
+    ```sh
+    git clone https://github.com/Amit-andro/
+    ```
+2. Navigate to the project directory:
+    ```sh
+    cd blogFrontend
+    ```
+3. Install dependencies:
+    ```sh
+    npm install react-router-dom axios jwt-decode -D tailwindcss postcss autoprefixer 
+    ```
+4. Install dependencies:
+    ```sh
+    npx tailwindcss init -p
+    ```
+5. Start the application:
+    ```sh
+    npm run dev
+    ```
+
