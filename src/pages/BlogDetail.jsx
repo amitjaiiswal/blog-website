@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Snackbar from "../snakeBar/Snackbar";
 import { jwtDecode } from "jwt-decode";
 
 const BlogDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [post, setPost] = useState([]);
   const [comments, setComments] = useState([]);
   const [blogComment, setBlogComment] = useState("");
@@ -13,7 +14,7 @@ const BlogDetail = () => {
   const [successMessage, setSuccessMessage] = useState("");
 
   const token = localStorage.getItem("authToken");
-  const userId = token? jwtDecode(token).id : null
+  const userId = token ? jwtDecode(token).id : null;
 
   const getComment = async () => {
     axios
@@ -36,9 +37,15 @@ const BlogDetail = () => {
     const date = new Date(dateString);
     return date.toLocaleDateString("en-US", options);
   };
+  ``;
 
   const handleComment = async (e) => {
     e.preventDefault();
+
+    if (!userId) {
+      setErrorMessage("Please log in to add a comment.") 
+      return;
+    }
 
     if (!blogComment.trim()) {
       setErrorMessage("Comment cannot be empty");
@@ -47,7 +54,7 @@ const BlogDetail = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/comment/createComments",
+        `https://blogbackend-hre7.onrender.com/api/comment/createComments`,
         {
           comments: blogComment,
           userId,
@@ -79,16 +86,18 @@ const BlogDetail = () => {
         {/* Comments section */}
         <div className="mt-8">
           <h2 className="text-2xl font-bold text-gray-900">Comments</h2>
-          {comments.map((comment) => (
-            <div className="mt-4">
-              <div className="bg-white shadow-md rounded-lg p-4 mb-4">
-                <p className="text-gray-700">{comment?.comment}</p>
-                <p className="text-gray-500 text-sm mt-2">
-                  by {comment?.name}, {formatDate(comment?.created_at)}
-                </p>
+          {comments
+            .filter((comment) => comment.userId !== null) 
+            .map((comment, index) => (
+              <div key={index} className="mt-4">
+                <div className="bg-white shadow-md rounded-lg p-4 mb-4">
+                  <p className="text-gray-700">{comment?.comment}</p>
+                  <p className="text-gray-500 text-sm mt-2">
+                    by {comment?.name}, {formatDate(comment?.created_at)}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
           <form className="mt-4" onSubmit={handleComment}>
             <textarea
               className="w-full p-2 border border-gray-300 rounded-lg"
