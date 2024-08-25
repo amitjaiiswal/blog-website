@@ -77,7 +77,7 @@ This project is a basic blog application with a list view and a detail view for 
 ### Backend Setup
 1. Clone the repository:
     ```sh
-    git clone https://github.com/Amit-andro/
+    git clone https://github.com/Amit-andro/](https://github.com/amitjaiiswal/blogBackend.git
     ```
 2. Navigate to the project directory:
     ```sh
