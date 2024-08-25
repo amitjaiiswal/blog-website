@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import AddBlog from "./pages/AddBlog";
 import MyBlog from "./pages/Blog";
+import NotFound from "./pages/NotFound";
 
 const isLoggedIn = () => {
   return localStorage.getItem("authToken") !== null;
@@ -30,6 +31,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/add-blog" element={<PrivateRoute element={<AddBlog />} />} />
             <Route path="/my-blog" element={<PrivateRoute element={<MyBlog />} />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
         <Footer className="footer" />

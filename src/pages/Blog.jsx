@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
+import notFound from "../assets/notFound.svg";
 
 const EditIcon = () => (
   <svg
@@ -204,29 +205,35 @@ const Blog = () => {
       </div>
       <div className="px-4 py-2 sm:px-0">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {filteredPosts.map((post) => (
-            <div
-              key={post.id}
-              className="bg-white shadow-md rounded-lg p-4 relative"
-            >
-              <div className="flex gap-1">
-                <FileIcon />
-                <h2 className="text-xl font-bold text-gray-900">
-                  {post.title}
-                </h2>
+          {filteredPosts.length > 0 ? (
+            filteredPosts.map((post) => (
+              <div
+                key={post.id}
+                className="bg-white shadow-md rounded-lg p-4 relative"
+              >
+                <div className="flex gap-1">
+                  <FileIcon />
+                  <h2 className="text-xl font-bold text-gray-900">
+                    {post.title}
+                  </h2>
+                </div>
+                <p className="text-gray-700 mt-2">{post?.content}</p>
+                <p className="text-gray-500 text-sm mt-4">{post.date}</p>
+                <div className="absolute top-2 right-2 flex space-x-2">
+                  <button onClick={() => handleUpdate(post.id)}>
+                    <EditIcon className="text-blue-500 hover:text-blue-700" />
+                  </button>
+                  <button onClick={() => handleDelete(post.id)}>
+                    <DeleteIcon className="text-red-500 hover:text-red-700" />
+                  </button>
+                </div>
               </div>
-              <p className="text-gray-700 mt-2">{post?.content}</p>
-              <p className="text-gray-500 text-sm mt-4">{post.date}</p>
-              <div className="absolute top-2 right-2 flex space-x-2">
-                <button onClick={() => handleUpdate(post.id)}>
-                  <EditIcon className="text-blue-500 hover:text-blue-700" />
-                </button>
-                <button onClick={() => handleDelete(post.id)}>
-                  <DeleteIcon className="text-red-500 hover:text-red-700" />
-                </button>
-              </div>
+            ))
+          ) : (
+            <div className="flex justify-center items-center relative left-[50%]">
+              <img src={notFound} alt="Not Found" className="max-w-full max-h-screen object-contain w-3/4 mt-10"/>
             </div>
-          ))}
+          )}
         </div>
       </div>
 
