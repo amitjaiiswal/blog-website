@@ -12,14 +12,14 @@ const BlogDetail = () => {
   const [blogComment, setBlogComment] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
   const [loadingComment, setLoadingComment] = useState(false);
 
   const token = localStorage.getItem("authToken");
   const userId = token ? jwtDecode(token).id : null;
 
   const getComment = async () => {
-    setLoading(true); 
+    setLoading(true);
     try {
       const res = await axios.get(
         `https://blogbackend-hre7.onrender.com/api/comment/getAllBlogsForUserForComment/${id}`
@@ -29,7 +29,7 @@ const BlogDetail = () => {
     } catch (error) {
       console.log(error);
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
@@ -46,7 +46,9 @@ const BlogDetail = () => {
 
     if (!userId) {
       setErrorMessage("Please log in to add a comment.");
-      navigate("/login");
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
       return;
     }
 
@@ -86,7 +88,7 @@ const BlogDetail = () => {
   return (
     <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 mt-16">
       <div className="px-4 py-6 sm:px-0">
-        {loading ? ( 
+        {loading ? (
           <div className="flex justify-center items-center">
             <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent border-solid rounded-full animate-spin"></div>
           </div>
@@ -123,7 +125,7 @@ const BlogDetail = () => {
             <button
               type="submit"
               className="mt-2 bg-indigo-500 hover:bg-indigo-600 px-4 py-2 rounded-3xl text-sm font-medium text-white flex items-center justify-center"
-              disabled={loadingComment} 
+              disabled={loadingComment}
             >
               {loadingComment ? (
                 <div className="w-5 h-5 border-2 border-white border-t-transparent border-solid rounded-full animate-spin mr-2"></div>

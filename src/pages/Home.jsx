@@ -88,7 +88,7 @@ const Home = () => {
         <div className="hidden md:flex md:w-1/2 items-center justify-center">
           <img
             src={blog}
-            alt="Login illustration"
+            alt="blog illustration"
             className="max-w-full max-h-screen object-contain w-3/4 mt-20"
           />
         </div>

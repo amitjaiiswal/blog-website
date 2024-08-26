@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import loginImage from "../assets/login.svg";
@@ -11,6 +11,13 @@ const Login = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem("authToken") !== null;
+    if (isLoggedIn) {
+      navigate("/my-blog");
+    }
+  }, [navigate]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -44,7 +51,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center mt-20">
+    <div className="flex items-center justify-center h-screen">
       {/* Left Side - Login Form */}
       <div className="flex flex-col justify-center px-6 py-12 lg:px-8 md:w-1/2 max-w-md">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">

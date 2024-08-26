@@ -46,7 +46,7 @@ const Register = () => {
   };
 
   return (
-    <div className="flex items-center justify-center mt-14">
+    <div className="flex items-center justify-center h-screen">
       {/* Left Side - Register Form */}
       <div className="flex flex-col justify-center px-6 py-12 lg:px-8 md:w-1/2 max-w-md">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">

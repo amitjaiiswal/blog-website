@@ -185,7 +185,7 @@ const Blog = () => {
   );
 
   return (
-    <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 mt-16">
+    <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 h-screen">
       {loading && (
         <div className="fixed inset-0 flex items-center justify-center">
           <Spinner />
@@ -231,7 +231,7 @@ const Blog = () => {
             ))
           ) : (
             <div className="flex justify-center items-center relative left-[50%]">
-              <img src={notFound} alt="Not Found" className="max-w-full max-h-screen object-contain w-3/4 mt-10"/>
+              <img src={notFound} alt="Not Found" className="max-w-full max-h-screen object-contain w-3/4 mt-20"/>
             </div>
           )}
         </div>
