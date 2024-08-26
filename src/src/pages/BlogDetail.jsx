@@ -46,9 +46,12 @@ const BlogDetail = () => {
 
     if (!userId) {
       setErrorMessage("Please log in to add a comment.");
-      navigate("/login");
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
       return;
     }
+
 
     if (!blogComment.trim()) {
       setErrorMessage("Comment cannot be empty");
