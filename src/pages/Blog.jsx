@@ -191,7 +191,7 @@ const Blog = () => {
           <Spinner />
         </div>
       )}
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-center mb-6 mt-16">
         <h1 className="text-3xl font-extrabold text-gray-900">
           Quick Blog Edits & Controls
         </h1>
