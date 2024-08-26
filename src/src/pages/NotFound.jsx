@@ -3,7 +3,7 @@ import noPage from '../assets/noPage.svg'
 
 const NotFound = () => {
   return (
-    <div className="flex items-center justify-center bg-gray-100 my-[10%]">
+    <div className="flex items-center justify-center bg-gray-100 h-screen">
       <img
         src={noPage}
         alt="404 - Page Not Found"
