@@ -76,7 +76,7 @@ This project is a basic blog application with a list view and a detail view for 
     ```
 2. Navigate to the project directory:
     ```sh
-    cd blogFrontend
+    cd blog-website
     ```
 3. Install dependencies:
     ```sh
