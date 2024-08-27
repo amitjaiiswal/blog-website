@@ -1,7 +1,7 @@
 # Blog Application
 
 ## Application Design
-![Alt Text]([https://sprl.in/weatherApp](https://github.com/amitjaiiswal/blog-website/blob/7cd80e241c92735f95bb81772720ca1f47a4c0e0/Home%20Page.png))
+![Alt Text]([https://github.com/amitjaiiswal/blog-website/blob/2362daea0f6c740aa3898209408783e8af8ec5c6/Home%20Page.png])
 
 ## Objective
 This project is a basic blog application with a list view and a detail view for blog posts, demonstrating skills in frontend development, backend development, database management, and deployment.
