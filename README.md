@@ -1,7 +1,7 @@
 # Blog Application
 
 ## Application Design
-![Alt Text]([https://github.com/amitjaiiswal/blog-website/blob/2362daea0f6c740aa3898209408783e8af8ec5c6/Home%20Page.png])
+![Alt Text](https://github.com/amitjaiiswal/blog-website/blob/2362daea0f6c740aa3898209408783e8af8ec5c6/Home%20Page.png)
 
 ## Objective
 This project is a basic blog application with a list view and a detail view for blog posts, demonstrating skills in frontend development, backend development, database management, and deployment.
